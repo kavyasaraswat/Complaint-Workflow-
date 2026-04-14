@@ -1,0 +1,46 @@
+{
+  "id": "complaint_workflow",
+  "version": "1.0.0",
+  "initial_state": "SUBMITTED",
+  "states": {
+    "SUBMITTED": {
+      "transitions": ["MANAGER_REVIEW"],
+      "actions": ["notify_manager.sh"],
+      "timeout_ms": 172800000,
+      "on_timeout": "TIMEOUT_ESCALATION"
+    },
+    "MANAGER_REVIEW": {
+      "transitions": ["HR_REVIEW", "REJECTED_BY_MANAGER"],
+      "actions": ["log_review.sh"],
+      "timeout_ms": 86400000,
+      "on_timeout": "TIMEOUT_ESCALATION"
+    },
+    "HR_REVIEW": {
+      "transitions": ["ACTION_TAKEN", "REJECTED_BY_HR"],
+      "actions": ["notify_hr.sh"],
+      "timeout_ms": 86400000,
+      "on_timeout": "TIMEOUT_ESCALATION"
+    },
+    "ACTION_TAKEN": {
+      "transitions": [],
+      "actions": ["notify_resolution.sh"],
+      "terminal": true
+    },
+    "REJECTED_BY_MANAGER": {
+      "transitions": [],
+      "actions": ["notify_rejection.sh"],
+      "terminal": true,
+      "compensating": true
+    },
+    "REJECTED_BY_HR": {
+      "transitions": [],
+      "actions": ["notify_rejection.sh"],
+      "terminal": true,
+      "compensating": true
+    },
+    "TIMEOUT_ESCALATION": {
+      "transitions": ["HR_REVIEW"],
+      "actions": ["notify_escalation.sh"]
+    }
+  }
+}
