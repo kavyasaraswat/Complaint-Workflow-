@@ -43,7 +43,7 @@ class Executor {
           if (stateDef.compensating) {
             console.error(`Script ${script} failed. Compensating actions should be implemented here.`);
           }
-          throw new Error('Side effect script failed, state rolled back.');
+          console.warn(`[WARNING] Side effect script ${script} failed, ignoring for workflow continuation.`);
         }
       }
     }
