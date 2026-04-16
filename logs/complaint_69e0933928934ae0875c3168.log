@@ -1,0 +1,20 @@
+[2026-04-16T07:43:54Z] [notify_manager] Complaint ID: 69e0933928934ae0875c3168
+Transition: NEW -> SUBMITTED
+Actor: Alice
+Action: Notifying manager of new complaint.
+Successfully sent notification to Manager.
+[2026-04-16T07:46:18Z] [notify_manager] Complaint ID: 69e0933928934ae0875c3168
+Transition: SUBMITTED -> MANAGER_REVIEW
+Actor: Bob
+Action: Notifying manager of new complaint.
+Successfully sent notification to Manager.
+[2026-04-16T07:47:30Z] [log_review] Complaint ID: 69e0933928934ae0875c3168
+Transition: MANAGER_REVIEW -> HR_REVIEW
+Actor: Bob
+Action: Manager started/completed review.
+Successfully logged manager review.
+[2026-04-16T07:47:43Z] [notify_hr] Complaint ID: 69e0933928934ae0875c3168
+Transition: HR_REVIEW -> ACTION_TAKEN
+Actor: Carol
+Action: Notifying HR of escalated complaint.
+Successfully sent notification to HR.
